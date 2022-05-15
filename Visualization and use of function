@@ -1,0 +1,26 @@
+X = StandardScaler().fit_transform(select_df)
+X
+kmeans = KMeans(n_clusters=12)
+model = kmeans.fit(X)
+print("model\n", model)
+centers = model.cluster_centers_
+centers
+def pd_centers(featuresUsed, centers):
+	colNames = list(featuresUsed)
+	colNames.append('prediction')
+
+	# Zip with a column called 'prediction' (index)
+	Z = [np.append(A, index) for index, A in enumerate(centers)]
+
+	# Convert to pandas data frame for plotting
+	P = pd.DataFrame(Z, columns=colNames)
+	P['prediction'] = P['prediction'].astype(int)
+	return P
+  # Function that creates Parallel Plots
+
+def parallel_plot(data):
+	my_colors = list(islice(cycle(['b', 'r', 'g', 'y', 'k']), None, len(data)))
+	plt.figure(figsize=(15,8)).gca().axes.set_ylim([-3,+3])
+	parallel_coordinates(data, 'prediction', color = my_colors, marker='o')
+  P = pd_centers(features, centers)
+P
