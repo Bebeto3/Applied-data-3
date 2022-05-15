@@ -1,0 +1,20 @@
+data = pd.read_csv("C:\dataset\weather.csv")
+data.shape
+data.head()
+sampled_df = data[(data['rowID'] % 10) == 0]
+sampled_df.shape
+sampled_df.describe()
+sampled_df[sampled_df['rain_accumulation'] == 0].shape
+sampled_df[sampled_df['rain_duration'] == 0].shape
+del sampled_df['rain_accumulation']
+del sampled_df['rain_duration']
+rows_before = sampled_df.shape[0]
+sampled_df = sampled_df.dropna()
+rows_after = sampled_df.shape[0]
+rows_before - rows_after
+sampled_df.columns
+features = ['air_pressure', 'air_temp', 'avg_wind_direction', 'avg_wind_speed', 'max_wind_direction', 
+        'max_wind_speed','relative_humidity']
+select_df = sampled_df[features]
+select_df.columns
+select_df
